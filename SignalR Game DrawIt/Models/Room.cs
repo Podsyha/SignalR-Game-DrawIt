@@ -26,17 +26,18 @@ public sealed class Room
     public void RemoveUser(string connectionId)
     {
         if (!_users.TryGetValue(connectionId, out _))
-            return;
+            throw new ArgumentException();
         
         _users.Remove(connectionId);
     }
 
-    public void AddUser(User user)
+    public void TryAddUser(User user)
     {
-        _users.TryAdd(user.ConnectionId, user);
+        if (!_users.TryAdd(user.ConnectionId, user))
+            throw new ArgumentException("User is already in the room");
     }
 
-    public bool CheckingAppend(string connectionId) =>
+    public bool CheckingUserAppend(string connectionId) =>
         !_users.ContainsKey(connectionId);
 
     public ICollection<string> GetAllConnectionsId() =>

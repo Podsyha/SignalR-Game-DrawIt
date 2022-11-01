@@ -39,8 +39,8 @@ public class DrawingHub : Hub
             throw new UnauthorizedAccessException("Login to create a room");
         
         Room room = new Room(Guid.NewGuid());
-        room.AddUser(user);
-        _rooms.Add(room.RoomId, room);
+        room.TryAddUser(user);
+        _rooms.TryAdd(room.RoomId, room);
 
         return room.RoomId;
     }
@@ -54,8 +54,8 @@ public class DrawingHub : Hub
         if (!_users.TryGetValue(currentConnectionId, out User user))
             throw new UnauthorizedAccessException("Login to create a room");
 
-        if (room.CheckingAppend(user.ConnectionId))
-            room.AddUser(user);
+        if (room.CheckingUserAppend(user.ConnectionId))
+            room.TryAddUser(user);
     }
 
     public void AddCoordsToRoom(string roomId, ICollection<Coord> coords)
