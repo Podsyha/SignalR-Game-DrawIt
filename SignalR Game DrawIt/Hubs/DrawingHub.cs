@@ -45,7 +45,7 @@ public class DrawingHub : Hub
         return room.RoomId;
     }
 
-    public void ConnectToRoom(string roomId)
+    public ICollection<Coord> ConnectToRoom(string roomId)
     {
         if (!_rooms.TryGetValue(roomId, out Room room))
             throw new ArgumentException("Non-existent room");
@@ -56,6 +56,8 @@ public class DrawingHub : Hub
 
         if (room.CheckingUserAppend(user.ConnectionId))
             room.TryAddUser(user);
+
+        return room.GetAllCoords();
     }
 
     public void AddCoordsToRoom(string roomId, ICollection<Coord> coords)

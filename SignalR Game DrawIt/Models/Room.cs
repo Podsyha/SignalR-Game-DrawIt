@@ -1,5 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
-
 namespace SignalR_Game_DrawIt.Models;
 
 public sealed class Room
@@ -22,6 +20,9 @@ public sealed class Room
 
     public void ClearCoords() =>
         _coords.Clear();
+
+    public ICollection<Coord> GetRoomCoords() =>
+        _coords;
 
     public void RemoveUser(string connectionId)
     {

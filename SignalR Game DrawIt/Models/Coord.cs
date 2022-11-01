@@ -2,6 +2,6 @@
 
 public sealed class Coord
 {
-    public string Y { get; init; }
     public string X { get; init; }
+    public string Y { get; init; }
 }
